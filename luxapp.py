@@ -24,24 +24,24 @@ def index():
 
 @app.route("/searchresults", methods=["GET"])
 def searchresults():
-    html1 = '''
-    <div>hello</div>
-    '''
-
-    response = make_response(html1)
-    return response
     label_search = request.args.get('l', "")
     classification_search = request.args.get('c', "")
     agent_search = request.args.get('a', "")
     department_search = request.args.get('d', "")
+    print(label_search, classification_search, agent_search, department_search)
+    results = ""
+
 
     # show search results from LuxQuery
     results = LuxQuery(DB_NAME).search(agt=agent_search, dep=department_search,
-                                       classifier=classification_search,
-                                       label=label_search)
-    print(results)
+                                    classifier=classification_search,
+                                    label=label_search)
+    results = json.loads(results)
+    results_data = results["data"]
     
-    html=''''
+    # print(results_data)
+    
+    html='''
     <table>
         <thead>
             <tr>
@@ -57,6 +57,7 @@ def searchresults():
     pattern = '''
     <tr>
         <div class='row'>
+            <td hidden>%d</td>
             <td>%s</td>
             <td>%s</td>
             <td>%s</td>
@@ -66,9 +67,9 @@ def searchresults():
     '''
 
     # insert label, date, agents, classifiers into html
-    for result in results:
+    for result in results_data:
         print(result)
-        html += pattern % result
+        html += pattern % tuple(result)
     
     html += '''
     </tbody>
