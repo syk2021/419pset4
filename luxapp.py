@@ -39,6 +39,11 @@ def searchresults():
     results = json.loads(results)
     results_data = results["data"]
 
+    # parse multiple agents and multiple classifiers
+    for obj in results_data:
+        obj[3] = obj[3].replace(",", "<br/>")
+        obj[4] = obj[4].replace(",", "<br/>")
+
     # print(results_data)
 
     html = '''
