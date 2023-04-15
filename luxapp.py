@@ -24,6 +24,12 @@ def index():
 
 @app.route("/searchresults", methods=["GET"])
 def searchresults():
+    html1 = '''
+    <div>hello</div>
+    '''
+
+    response = make_response(html1)
+    return response
     label_search = request.args.get('l', "")
     classification_search = request.args.get('c', "")
     agent_search = request.args.get('a', "")
