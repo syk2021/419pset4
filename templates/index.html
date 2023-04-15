@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>YUAG Collection Search</title>
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="{{ url_for('static', filename='style.css') }}"
+		/>
+	</head>
+
+	<body>
+		<div class="heading">
+			<hr />
+			<h1>YUAG Collection Search</h1>
+			<hr />
+		</div>
+
+		<div class="input-form">
+			<form action="search" method="get">
+				<div class="form-field">
+					<label class="label-text">Label</label
+					><input value="{{prev_label}}" type="text" name="l" />
+				</div>
+				<div class="form-field">
+					<label class="label-text">Classifier</label
+					><input value="{{prev_classifier}}" type="text" name="c" />
+				</div>
+				<div class="form-field">
+					<label class="label-text">Agent</label
+					><input value="{{prev_agent}}" type="text" name="a" />
+				</div>
+				<div class="form-field">
+					<label class="label-text">Department</label
+					><input value="{{prev_department}}" type="text" name="d" />
+				</div>
+				<div class="submit-btn">
+					<input id="btn" type="submit" value="Search" />
+				</div>
+			</form>
+		</div>
+
+		<div className="footer">
+			Date and time: <span id="dateTime"></span><br />
+			CPSC 419 Group #9 Solution
+			<hr />
+		</div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<script src="{{ url_for('static', filename='script.js') }}"></script>
+	</body>
+</html>
