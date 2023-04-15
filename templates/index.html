@@ -21,24 +21,27 @@
 			<form action="search" method="get">
 				<div class="form-field">
 					<label class="label-text">Label</label
-					><input value="{{prev_label}}" type="text" name="l" />
+					><input id="label-input" type="text" name="l" />
 				</div>
 				<div class="form-field">
 					<label class="label-text">Classifier</label
-					><input value="{{prev_classifier}}" type="text" name="c" />
+					><input id="classifier-input" type="text" name="c" />
 				</div>
 				<div class="form-field">
 					<label class="label-text">Agent</label
-					><input value="{{prev_agent}}" type="text" name="a" />
+					><input id="agent-input" type="text" name="a" />
 				</div>
 				<div class="form-field">
 					<label class="label-text">Department</label
-					><input value="{{prev_department}}" type="text" name="d" />
-				</div>
-				<div class="submit-btn">
-					<input id="btn" type="submit" value="Search" />
+					><input id="dep-input" type="text" name="d" />
 				</div>
 			</form>
+		</div>
+
+		<div className="results">
+			<hr />
+			<p id="results"></p>
+			<hr />
 		</div>
 
 		<div className="footer">
