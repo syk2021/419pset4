@@ -1,0 +1,3 @@
+- CSS for index + luxdetails
+- http://yourserver:80/search?foo=bar&a=gogh (do you display a table in index or page just for table)
+- 

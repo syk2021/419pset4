@@ -28,7 +28,7 @@ function getTableResults() {
 	agent = encodeURIComponent(agent);
 	dep = encodeURIComponent(dep);
 
-	let url = `/searchresults?l=${label}&c=${classifier}&a=${agent}&d=${dep}`;
+	let url = `/search?l=${label}&c=${classifier}&a=${agent}&d=${dep}`;
 
 	if (request_results != null) {
 		request_results.abort();
