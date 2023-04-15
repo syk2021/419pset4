@@ -22,6 +22,7 @@ def index():
     response = make_response(html)
     return response
 
+
 @app.route("/searchresults", methods=["GET"])
 def searchresults():
     label_search = request.args.get('l', "")
@@ -31,18 +32,17 @@ def searchresults():
     print(label_search, classification_search, agent_search, department_search)
     results = ""
 
-
     # show search results from LuxQuery
     results = LuxQuery(DB_NAME).search(agt=agent_search, dep=department_search,
-                                    classifier=classification_search,
-                                    label=label_search)
+                                       classifier=classification_search,
+                                       label=label_search)
     results = json.loads(results)
     results_data = results["data"]
-    
+
     # print(results_data)
-    
-    html='''
-    <table>
+
+    html = '''
+    <table class="data-table">
         <thead>
             <tr>
                 <th>Label</th>
@@ -70,7 +70,7 @@ def searchresults():
     for result in results_data:
         print(result)
         html += pattern % tuple(result)
-    
+
     html += '''
     </tbody>
     </table>
