@@ -53,3 +53,8 @@
 .details-table th {
   padding: 5px;
 }
+
+.information-list {
+  list-style-position: inside;
+  padding-left: 0;
+}

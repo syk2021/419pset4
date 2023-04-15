@@ -9,7 +9,7 @@ from flask import Flask, request, make_response, render_template, abort
 from query import LuxQuery, LuxDetailsQuery, NoSearchResultsError
 
 
-DB_NAME = "./lux2.sqlite"
+DB_NAME = "./lux.sqlite"
 
 app = Flask(__name__)
 

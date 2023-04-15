@@ -7,7 +7,7 @@
 		/>
     <h1>Details for obj {{object_id}} </h1>
     <h2>Summary</h2>
-    <table class="data-table">
+    <table>
         <thead>
             <tr>
                 <th>Accession No.</th>
@@ -53,24 +53,11 @@
     </ul>
 
     <h2>Information</h2>
-    <table class="details-table">
-        <thead>
-            <tr>
-                {% for column in search_response['columns_information'] %}
-                    <th>{{column}}</th>
-                {% endfor %}
-            </tr>
-        </thead>
-        <tbody>
-                {% for i in range(search_response['object']['ref_type']|length) %} 
-                <tr>
-                    <td>{{ search_response['object']['ref_type'][i] }}</td>
-                    <td>{{ search_response['object']['ref_content'][i] }}</td>
-                </tr>
-                {% endfor %}
-        </tbody>
-    </table>
-
+        <ul class="information-list">
+        {% for i in range(search_response['object']['ref_type']|length) %} 
+        <li><strong>{{ search_response['object']['ref_type'][i]}}</strong>: {{ search_response['object']['ref_content'][i]}}</li>
+        {% endfor %}
+        </ul>
     <br>
 
     <div class="footer">
