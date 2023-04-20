@@ -7,6 +7,7 @@
 			href="{{ url_for('static', filename='styles.css') }}"
 		/>
 	</head>
+
 	<body>
 		<header>
 			<h1>Details for obj {{object_id}}</h1>
@@ -40,8 +41,7 @@
 			<table class="details-table">
 				<thead>
 					<tr>
-						{% for column in search_response['columns_produced_by']
-						%}
+						{% for column in search_response['columns_produced_by'] %}
 						<th>{{column}}</th>
 						{% endfor %}
 					</tr>
@@ -70,12 +70,9 @@
 		<section>
 			<h2>Information</h2>
 			<ul class="information-list">
-				{% for i in range(search_response['object']['ref_type']|length)
-				%}
+				{% for i in range(search_response['object']['ref_type']|length) %}
 				<li>
-					<strong
-						>{{ search_response['object']['ref_type'][i]}}</strong
-					>: {{ search_response['object']['ref_content'][i]}}
+					<strong>{{ search_response['object']['ref_type'][i]}}</strong>: {{ search_response['object']['ref_content'][i]}}
 				</li>
 				{% endfor %}
 			</ul>
