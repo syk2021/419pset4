@@ -17,7 +17,7 @@ app = Flask(__name__)
 @app.route('/', methods=['GET'])
 @app.route('/index', methods=['GET'])
 def index():
-
+    """Function for the '/' route."""
     html = render_template('index.html')
     response = make_response(html)
     return response
@@ -25,23 +25,25 @@ def index():
 @app.errorhandler(404)
 def page_not_found(error_message):
     """Function for 404 error handler."""
-
     message = error_message.description
     return render_template("error.html", message=message), 404
 
 @app.route('/obj/', methods=["GET"])
 def missing_obj():
     """If object id not provided, abort with 404 and message."""
-
     abort(404, description="missing object id.")
 
 @app.route("/search", methods=["GET"])
 def search():
+    """Function for the '/search' route."""
+
+    # set each of the following four variables as user input or null
     label_search = request.args.get('l', "")
     classification_search = request.args.get('c', "")
     agent_search = request.args.get('a', "")
     department_search = request.args.get('d', "")
-    print(label_search, classification_search, agent_search, department_search)
+
+    # query the database and select data that we need
     results = ""
     try:
         # show search results from LuxQuery
@@ -52,6 +54,7 @@ def search():
         # if can not query database, then exits with 1
         print(f"Database {DB_NAME} unable to open")
         os._exit(1)
+
     results = json.loads(results)
     results_data = results["data"]
 
@@ -60,8 +63,7 @@ def search():
         obj[3] = obj[3].replace(",", "<br/>")
         obj[4] = obj[4].replace(",", "<br/>")
 
-    # print(results_data)
-
+    # html format for table
     html = '''
     <table class="data-table">
         <thead>
@@ -75,6 +77,7 @@ def search():
     <tbody>
     '''
 
+    # html format for each row
     pattern = '''
     <tr>
         <div class='row'>
@@ -88,9 +91,9 @@ def search():
 
     # insert label, date, agents, classifiers into html
     for result in results_data:
-        # print(result)
         html += pattern % tuple(result)
 
+    # finish up the html
     html += '''
     </tbody>
     </table>
@@ -121,4 +124,3 @@ def search_obj(object_id):
     response = make_response(html)
 
     return response
-
