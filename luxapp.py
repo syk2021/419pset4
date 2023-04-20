@@ -69,20 +69,6 @@ def search():
         obj[3] = obj[3].replace(",", "<br/>")
         obj[4] = obj[4].replace(",", "<br/>")
 
-    # html format for table
-    html = '''
-    <table class="data-table">
-        <thead>
-            <tr>
-                <th>Label</th>
-                <th>Date</th>
-                <th>Agents</th>
-                <th>Classified As</th>
-            </tr>
-        </thead>
-    <tbody>
-    '''
-
     # html format for each row
     pattern = '''
     <tr>
@@ -99,8 +85,19 @@ def search():
     for result in results_data:
         html += pattern % tuple(result)
 
-    # finish up the html
-    html += '''
+    # html format for table
+    html = f'''
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Label</th>
+                <th>Date</th>
+                <th>Agents</th>
+                <th>Classified As</th>
+            </tr>
+        </thead>
+    <tbody>
+    {pattern}
     </tbody>
     </table>
     '''
