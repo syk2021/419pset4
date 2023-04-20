@@ -50,19 +50,17 @@ def search():
     department_search = request.args.get('d', "")
 
     # query the database and select data that we need
-    results = ""
     try:
         # show search results from LuxQuery
         results = LuxQuery(DB_NAME).search(agt=agent_search, dep=department_search,
                                            classifier=classification_search,
                                            label=label_search)
+        results = json.loads(results)
+        results_data = results["data"]
     except OperationalError:
         # if can not query database, then exits with 1
         print(f"Database {DB_NAME} unable to open")
         os._exit(1)
-
-    results = json.loads(results)
-    results_data = results["data"]
 
     # parse multiple agents and multiple classifiers
     for obj in results_data:
@@ -82,8 +80,9 @@ def search():
     '''
 
     # insert label, date, agents, classifiers into html
+    pattern_res = ""
     for result in results_data:
-        html += pattern % tuple(result)
+        pattern_res += pattern % tuple(result)
 
     # html format for table
     html = f'''
@@ -97,7 +96,7 @@ def search():
             </tr>
         </thead>
     <tbody>
-    {pattern}
+    {pattern_res}
     </tbody>
     </table>
     '''
