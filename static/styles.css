@@ -39,7 +39,6 @@
 
 .data-table tr:hover {
 	background-color: lightgray;
-	cursor: pointer;
 }
 
 /* Styling for details table */
