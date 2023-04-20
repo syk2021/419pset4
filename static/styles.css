@@ -43,11 +43,6 @@
 
 /* Styling for details table */
 
-.information-list {
-	list-style-position: inside;
-	padding-left: 0;
-}
-
 .details-table th {
 	padding: 10px;
 	text-align: left;
@@ -56,4 +51,11 @@
 .details-table td,
 .details-table th {
 	padding: 10px;
+}
+
+/* Styling for details page */
+
+.information-list {
+	list-style-position: inside;
+	padding-left: 0;
 }
