@@ -48,14 +48,14 @@ def search():
     classification_search = request.args.get('c', "")
     agent_search = request.args.get('a', "")
     department_search = request.args.get('d', "")
-    
+
     if label_search or classification_search or agent_search or department_search:
         # query the database and select data that we need
         try:
             # show search results from LuxQuery
             results = LuxQuery(DB_NAME).search(agt=agent_search, dep=department_search,
-                                            classifier=classification_search,
-                                            label=label_search)
+                                               classifier=classification_search,
+                                               label=label_search)
             results = json.loads(results)
             results_data = results["data"]
         except OperationalError:
@@ -82,7 +82,7 @@ def search():
     </tr>
     '''
 
-    # insert label, date, agents, classifiers into html
+    # get label, date, agents, classifiers data html pattern
     pattern_res = ""
     for result in results_data:
         pattern_res += pattern % tuple(result)
