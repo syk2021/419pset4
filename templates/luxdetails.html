@@ -1,66 +1,76 @@
 <!DOCTYPE html>
 <html>
-    <link
+	<head>
+		<link
 			rel="stylesheet"
 			type="text/css"
 			href="{{ url_for('static', filename='styles.css') }}"
 		/>
-    <h1>Details for obj {{object_id}} </h1>
-    <h2>Summary</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Accession No.</th>
-                <th>Date</th>
-                <th>Place</th>
-            </tr>
-        </thead>
-        <tbody>
-            <td>{{ search_response['object']['accession_no'] }}</td>
-            <td>{{ search_response['object']['date'] }}</td>
-            <td>{{ search_response['object']['place'] }}</td>
-        </tbody>
-    </table>
+	</head>
+	<body>
+		<header>
+			<h1>Details for obj {{object_id}}</h1>
+		</header>
 
-    <h2>Label</h2>
-    <div>{{ search_response['object']['label']}}</div>
+		<h2>Summary</h2>
+		<table class="details-table">
+			<thead>
+				<tr>
+					<th>Accession No.</th>
+					<th>Date</th>
+					<th>Place</th>
+				</tr>
+			</thead>
+			<tbody>
+				<td>{{ search_response['object']['accession_no'] }}</td>
+				<td>{{ search_response['object']['date'] }}</td>
+				<td>{{ search_response['object']['place'] }}</td>
+			</tbody>
+		</table>
 
-    <h2>Produced By:</h2>
-    <table>
-        <thead>
-            <tr>
-                {% for column in search_response['columns_produced_by'] %}
-                    <th>{{column}}</th>
-                {% endfor %}
-            </tr>
-        </thead>
-        <tbody>
-            {% for agent_info in search_response['agents'] %}
-                <tr>
-                    {% for i in range(agent_info | length) %}
-                        <td>{{agent_info[i]}}</td>
-                    {% endfor %}
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+		<h2>Label</h2>
+		<div>{{ search_response['object']['label']}}</div>
 
-    <h2>Classified As</h2>
-    <ul>
-        {% for classifier in search_response['object']['classifier'] %}
-        <li>{{classifier}}</li>
-        {% endfor %}
-    </ul>
+		<h2>Produced By:</h2>
+		<table class="details-table">
+			<thead>
+				<tr>
+					{% for column in search_response['columns_produced_by'] %}
+					<th>{{column}}</th>
+					{% endfor %}
+				</tr>
+			</thead>
+			<tbody>
+				{% for agent_info in search_response['agents'] %}
+				<tr>
+					{% for i in range(agent_info | length) %}
+					<td>{{agent_info[i]}}</td>
+					{% endfor %}
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
 
-    <h2>Information</h2>
-        <ul class="information-list">
-        {% for i in range(search_response['object']['ref_type']|length) %} 
-        <li><strong>{{ search_response['object']['ref_type'][i]}}</strong>: {{ search_response['object']['ref_content'][i]}}</li>
-        {% endfor %}
-        </ul>
-    <br>
+		<h2>Classified As</h2>
+		<ul>
+			{% for classifier in search_response['object']['classifier'] %}
+			<li>{{classifier}}</li>
+			{% endfor %}
+		</ul>
 
-    <div class="footer">
-        CPSC 419 Group #9 Solution. Current time is: {{time}}
-    </div>
+		<h2>Information</h2>
+		<ul class="information-list">
+			{% for i in range(search_response['object']['ref_type']|length) %}
+			<li>
+				<strong>{{ search_response['object']['ref_type'][i]}}</strong>:
+				{{ search_response['object']['ref_content'][i]}}
+			</li>
+			{% endfor %}
+		</ul>
+		<br />
+
+		<div class="footer">
+			CPSC 419 Group #9 Solution. Current time is: {{time}}
+		</div>
+	</body>
 </html>
