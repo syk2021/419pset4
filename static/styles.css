@@ -37,6 +37,10 @@
 	cursor: default;
 }
 
+.data-table tr {
+	border-bottom: 1px solid gray;
+}
+
 .data-table tr:hover {
 	background-color: lightgray;
 }
