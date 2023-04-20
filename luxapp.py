@@ -48,19 +48,22 @@ def search():
     classification_search = request.args.get('c', "")
     agent_search = request.args.get('a', "")
     department_search = request.args.get('d', "")
-
-    # query the database and select data that we need
-    try:
-        # show search results from LuxQuery
-        results = LuxQuery(DB_NAME).search(agt=agent_search, dep=department_search,
-                                           classifier=classification_search,
-                                           label=label_search)
-        results = json.loads(results)
-        results_data = results["data"]
-    except OperationalError:
-        # if can not query database, then exits with 1
-        print(f"Database {DB_NAME} unable to open")
-        os._exit(1)
+    
+    if label_search or classification_search or agent_search or department_search:
+        # query the database and select data that we need
+        try:
+            # show search results from LuxQuery
+            results = LuxQuery(DB_NAME).search(agt=agent_search, dep=department_search,
+                                            classifier=classification_search,
+                                            label=label_search)
+            results = json.loads(results)
+            results_data = results["data"]
+        except OperationalError:
+            # if can not query database, then exits with 1
+            print(f"Database {DB_NAME} unable to open")
+            os._exit(1)
+    else:
+        results_data = []
 
     # parse multiple agents and multiple classifiers
     for obj in results_data:
