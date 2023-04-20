@@ -18,20 +18,26 @@ app = Flask(__name__)
 @app.route('/index', methods=['GET'])
 def index():
     """Function for the '/' route."""
+
     html = render_template('index.html')
     response = make_response(html)
     return response
 
+
 @app.errorhandler(404)
 def page_not_found(error_message):
     """Function for 404 error handler."""
+
     message = error_message.description
     return render_template("error.html", message=message), 404
+
 
 @app.route('/obj/', methods=["GET"])
 def missing_obj():
     """If object id not provided, abort with 404 and message."""
+
     abort(404, description="missing object id.")
+
 
 @app.route("/search", methods=["GET"])
 def search():
@@ -48,8 +54,8 @@ def search():
     try:
         # show search results from LuxQuery
         results = LuxQuery(DB_NAME).search(agt=agent_search, dep=department_search,
-                                        classifier=classification_search,
-                                        label=label_search)
+                                           classifier=classification_search,
+                                           label=label_search)
     except OperationalError:
         # if can not query database, then exits with 1
         print(f"Database {DB_NAME} unable to open")
@@ -101,6 +107,7 @@ def search():
 
     response = make_response(html)
     return response
+
 
 @app.route('/obj/<object_id>', methods=['GET'])
 def search_obj(object_id):
