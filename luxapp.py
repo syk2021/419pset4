@@ -49,6 +49,8 @@ def search():
     agent_search = request.args.get('a', "")
     department_search = request.args.get('d', "")
 
+    html = ""
+
     if label_search or classification_search or agent_search or department_search:
         # query the database and select data that we need
         try:
@@ -62,47 +64,45 @@ def search():
             # if can not query database, then exits with 1
             print(f"Database {DB_NAME} unable to open")
             os._exit(1)
-    else:
-        results_data = []
 
-    # parse multiple agents and multiple classifiers
-    for obj in results_data:
-        obj[3] = obj[3].replace(",", "<br/>")
-        obj[4] = obj[4].replace(",", "<br/>")
+        # parse multiple agents and multiple classifiers
+        for obj in results_data:
+            obj[3] = obj[3].replace(",", "<br/>")
+            obj[4] = obj[4].replace(",", "<br/>")
 
-    # html format for each row
-    pattern = '''
-    <tr>
-        <div class='row'>
-            <td><a href="obj/%d" target="_blank">%s</a></td>
-            <td>%s</td>
-            <td>%s</td>
-            <td>%s</td>
-        </div>
-    </tr>
-    '''
+        # html format for each row
+        pattern = '''
+        <tr>
+            <div class='row'>
+                <td><a href="obj/%d" target="_blank">%s</a></td>
+                <td>%s</td>
+                <td>%s</td>
+                <td>%s</td>
+            </div>
+        </tr>
+        '''
 
-    # get label, date, agents, classifiers data html pattern
-    pattern_res = ""
-    for result in results_data:
-        pattern_res += pattern % tuple(result)
+        # get label, date, agents, classifiers data html pattern
+        pattern_res = ""
+        for result in results_data:
+            pattern_res += pattern % tuple(result)
 
-    # html format for table
-    html = f'''
-    <table class="data-table">
-        <thead>
-            <tr>
-                <th>Label</th>
-                <th>Date</th>
-                <th>Agents</th>
-                <th>Classified As</th>
-            </tr>
-        </thead>
-    <tbody>
-    {pattern_res}
-    </tbody>
-    </table>
-    '''
+        # html format for table
+        html = f'''
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Label</th>
+                    <th>Date</th>
+                    <th>Agents</th>
+                    <th>Classified As</th>
+                </tr>
+            </thead>
+        <tbody>
+        {pattern_res}
+        </tbody>
+        </table>
+        '''
 
     response = make_response(html)
     return response
